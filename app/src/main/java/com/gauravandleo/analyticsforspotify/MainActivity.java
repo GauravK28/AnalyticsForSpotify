@@ -2,10 +2,15 @@ package com.gauravandleo.analyticsforspotify;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
 
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
@@ -13,59 +18,72 @@ import com.spotify.android.appremote.api.SpotifyAppRemote;
 import com.spotify.protocol.client.Subscription;
 import com.spotify.protocol.types.PlayerState;
 import com.spotify.protocol.types.Track;
+import com.spotify.sdk.android.authentication.AuthenticationClient;
+import com.spotify.sdk.android.authentication.AuthenticationRequest;
+import com.spotify.sdk.android.authentication.AuthenticationResponse;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String CLIENT_ID = "bb4f93613f0c40d7952b83554e681ec5";
-    private static final String REDIRECT_URI = "https://www.spotify.com/us/";
+    private static final String REDIRECT_URI = "com.gauravandleo.analyticsforspotify://callback/ ";
+    private static final int REQUEST_CODE = 1337;
+    private static final String SCOPES = "user-read-recently-played,user-library-modify,user-read-email,user-read-private";
     private SpotifyAppRemote mSpotifyAppRemote;
+
+    private SharedPreferences.Editor editor;
+    private SharedPreferences msharedPreferences;
+
+    private RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
+
         setContentView(R.layout.activity_main);
+
+        authenticateSpotify();
+
+        msharedPreferences = this.getSharedPreferences("SPOTIFY", 0);
+        queue = Volley.newRequestQueue(this);
+    }
+
+    private void authenticateSpotify() {
+        AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI);
+        builder.setScopes(new String[]{SCOPES});
+        AuthenticationRequest request = builder.build();
+        AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        // Setup for authorizing user for built-in auth flow
-        ConnectionParams connectionParams =
-                new ConnectionParams.Builder(CLIENT_ID)
-                        .setRedirectUri(REDIRECT_URI)
-                        .showAuthView(true)
-                        .build();
-        System.out.println("YEET");
-        //Creates instance of SpotifyAppRemote
-        SpotifyAppRemote.connect(this, connectionParams,
-                new Connector.ConnectionListener() {
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
 
-                    @Override
-                    public void onConnected(SpotifyAppRemote spotifyAppRemote) {
-                        mSpotifyAppRemote = spotifyAppRemote;
-                        Log.d("MainActivity", "Connected! Yay!");
+        // Check if result comes from the correct activity
+        if (requestCode == REQUEST_CODE) {
+            AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
 
-                        // Now you can start interacting with App Remote
-                        connected();
-                        System.out.println("did it reach here");
-                    }
+            switch (response.getType()) {
+                // Response was successful and contains auth token
+                case TOKEN:
+                    editor = getSharedPreferences("SPOTIFY", 0).edit();
+                    editor.putString("token", response.getAccessToken());
+                    Log.d("STARTING", "GOT AUTH TOKEN");
+                    editor.apply();
+                    //waitForUserInfo();
+                    break;
 
-                    @Override
-                    public void onFailure(Throwable throwable) {
-                        Log.e("MainActivity", throwable.getMessage(), throwable);
-                        System.out.println("or here");
-                        // Something went wrong when attempting to connect! Handle errors here
-                    }
-                });
-    }
-    private void connected() {
-        // Play a playlist
-        mSpotifyAppRemote.getPlayerApi().play("spotify:playlist:37i9dQZF1DX2sUQwD7tbmL");
+                // Auth flow returned an error
+                case ERROR:
+                    // Handle error response
+                    break;
+
+                // Most likely auth flow was cancelled
+                default:
+                    // Handle other cases
+            }
+        }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        // Aaand we will finish off here.
-    }
 }
