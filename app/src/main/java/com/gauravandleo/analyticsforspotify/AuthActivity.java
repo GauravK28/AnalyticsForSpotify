@@ -7,10 +7,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
+import android.widget.Button;
 
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+
 
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
@@ -20,7 +22,6 @@ public class AuthActivity extends AppCompatActivity {
 
     private static final String CLIENT_ID = "bb4f93613f0c40d7952b83554e681ec5";
     private static final String REDIRECT_URI = "http://com.gauravandleo.analyticsforspotify/callback";
-    //private static final String AUTH_REDIRECT_URI = "https://accounts.spotify.com/authorize";
     private static final int REQUEST_CODE = 1337;
     private static final String SCOPES =
             "user-read-recently-played,user-top-read,user-library-modify,playlist-modify-private,user-read-email,user-read-private";
@@ -38,7 +39,9 @@ public class AuthActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_auth);
 
-        authenticateSpotify();
+        Button login = findViewById(R.id.login);
+        login.setOnClickListener(unused -> authenticateSpotify());
+        //authenticateSpotify();
 
         msharedPreferences = this.getSharedPreferences("SPOTIFY", 0);
         queue = Volley.newRequestQueue(this);
@@ -95,8 +98,8 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     private void startMainActivity() {
-        Intent newintent = new Intent(AuthActivity.this, MainActivity.class);
-        startActivity(newintent);
+        Intent newIntent = new Intent(AuthActivity.this, MainActivity.class);
+        startActivity(newIntent);
     }
 
 }
