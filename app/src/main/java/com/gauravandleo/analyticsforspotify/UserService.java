@@ -31,7 +31,7 @@ public class UserService {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(ENDPOINT, null, response -> {
             //Gson gson = new Gson();
             //user = gson.fromJson(response.toString(), User.class);
-
+            user = new User();
             String json = response.toString();
             JsonObject currentUser = new JsonParser().parse(json).getAsJsonObject();
             user.setId(currentUser.get("id").getAsString());
@@ -39,8 +39,8 @@ public class UserService {
             user.setDisplay_name(currentUser.get("display_name").getAsString());
             user.setEmail(currentUser.get("email").getAsString());
 
-
             callBack.onSuccess();
+
         }, error -> get(() -> {
 
         })) {
