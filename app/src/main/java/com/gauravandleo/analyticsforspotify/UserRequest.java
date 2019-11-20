@@ -12,13 +12,13 @@ import com.google.gson.JsonParser;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserService {
+public class UserRequest {
     private static final String ENDPOINT = "https://api.spotify.com/v1/me";
     private SharedPreferences msharedPreferences;
     private RequestQueue mqueue;
     private User user;
 
-    public UserService(RequestQueue queue, SharedPreferences sharedPreferences) {
+    public UserRequest(RequestQueue queue, SharedPreferences sharedPreferences) {
         mqueue = queue;
         msharedPreferences = sharedPreferences;
     }

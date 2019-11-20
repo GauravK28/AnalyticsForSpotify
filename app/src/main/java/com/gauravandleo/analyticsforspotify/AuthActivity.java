@@ -85,9 +85,9 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     private void waitForUserInfo() {
-        UserService userService = new UserService(queue, msharedPreferences);
-        userService.get(() -> {
-            User user = userService.getUser();
+        UserRequest userRequest = new UserRequest(queue, msharedPreferences);
+        userRequest.get(() -> {
+            User user = userRequest.getUser();
             editor = getSharedPreferences("SPOTIFY", 0).edit();
             editor.putString("userid", user.id);
             Log.d("STARTING", "GOT USER INFORMATION");
