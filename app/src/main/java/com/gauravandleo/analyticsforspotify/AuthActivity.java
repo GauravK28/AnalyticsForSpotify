@@ -24,7 +24,7 @@ public class AuthActivity extends AppCompatActivity {
     private static final String REDIRECT_URI = "http://com.gauravandleo.analyticsforspotify/callback";
     private static final int REQUEST_CODE = 1337;
     private static final String SCOPES =
-            "user-read-recently-played,user-top-read,user-library-modify,playlist-modify-private,user-follow-read,user-read-email,user-read-private,user-read-recently-played";
+            "user-read-recently-played,user-top-read,user-library-modify,playlist-modify-private,user-follow-read,user-read-email,user-read-private";
 
     private SharedPreferences.Editor editor;
     private SharedPreferences msharedPreferences;
@@ -41,7 +41,6 @@ public class AuthActivity extends AppCompatActivity {
 
         Button login = findViewById(R.id.login);
         login.setOnClickListener(unused -> authenticateSpotify());
-        //authenticateSpotify();
 
         msharedPreferences = this.getSharedPreferences("SPOTIFY", 0);
         queue = Volley.newRequestQueue(this);
