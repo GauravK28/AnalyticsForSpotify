@@ -27,6 +27,7 @@ public class UserRequest {
         return user;
     }
 
+    //SAMPLE GET REQUEST
     public void get(final VolleyCallBack callBack) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(ENDPOINT, null, response -> {
             //Gson gson = new Gson();

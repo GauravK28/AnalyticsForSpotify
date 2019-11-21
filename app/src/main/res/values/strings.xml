@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">AnalyticsForSpotify</string>
     <string name="login">Login</string>
+    <string name="add_to_liked_songs">Add to Liked Songs</string>
 
 </resources>

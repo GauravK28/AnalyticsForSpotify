@@ -33,21 +33,10 @@ public class SongRequest {
         return songs;
     }
 
+    //SAMPLE GET REQUEST
     public ArrayList<Song> getRecentlyPlayedTracks(final VolleyCallBack callBack) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, ENDPOINT, null, response -> {
-//                    Gson gson = new Gson();
-//                    JSONArray jsonArray = response.optJSONArray("items");
-//                    for (int n = 0; n < jsonArray.length(); n++) {
-//                        try {
-//                            JSONObject object = jsonArray.getJSONObject(n);
-//                            object = object.optJSONObject("track");
-//                            Song song = gson.fromJson(object.toString(), Song.class);
-//                            songs.add(song);
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
 
                     String json = response.toString();
                     JsonObject recentSongs = new JsonParser().parse(json).getAsJsonObject();
@@ -78,4 +67,29 @@ public class SongRequest {
         queue.add(jsonObjectRequest);
         return songs;
     }
+
+
+//    public void addSongToLibrary(Song song) {
+//        JsonObject payload = preparePutPayload(song);
+//        JsonObjectRequest jsonObjectRequest = prepareSongLibraryRequest(payload);
+//        queue.add(jsonObjectRequest);
+//    }
+
+
+    //SAMPLE POST REQUEST
+//    private JsonObjectRequest prepareSongLibraryRequest(JsonObject payload) {
+//        return new JsonObjectRequest(Request.Method.PUT, "https://api.spotify.com/v1/me/tracks", payload, response -> {
+//        }, error -> {
+//        }) {
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                Map<String, String> headers = new HashMap<>();
+//                String token = sharedPreferences.getString("token", "");
+//                String auth = "Bearer " + token;
+//                headers.put("Authorization", auth);
+//                headers.put("Content-Type", "application/json");
+//                return headers;
+//            }
+//        };
+//    }
 }
