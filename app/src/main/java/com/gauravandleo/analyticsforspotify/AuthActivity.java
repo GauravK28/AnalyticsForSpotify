@@ -47,8 +47,11 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     private void authenticateSpotify() {
-        AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI);
-        builder.setScopes(new String[]{SCOPES});
+        AuthenticationRequest.Builder builder = new AuthenticationRequest
+                .Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI)
+                .setShowDialog(true)
+                .setScopes(new String[]{SCOPES});
+        //builder.setScopes(new String[]{SCOPES});
         AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
     }

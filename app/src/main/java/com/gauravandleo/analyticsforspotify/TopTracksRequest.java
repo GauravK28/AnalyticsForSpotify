@@ -19,7 +19,7 @@ import java.util.Map;
 public class TopTracksRequest {
 
     //GETS all time top tracks
-    private final String ENDPOINT =  "https://api.spotify.com/v1/me/top/tracks?limit=50&long_term";
+    private final String ENDPOINT =  "https://api.spotify.com/v1/me/top/tracks?limit=2&time_range=long_term";
     private ArrayList<Song> songs = new ArrayList<>();
     private SharedPreferences sharedPreferences;
     private RequestQueue queue;
@@ -39,9 +39,11 @@ public class TopTracksRequest {
 
                     String json = response.toString();
                     JsonObject recentSongs = new JsonParser().parse(json).getAsJsonObject();
+                    System.out.println("PRINTS RECENT SONGS IN JSON");
                     System.out.println(recentSongs);
                     callBack.onSuccess();
-
+                    Song song = new Song("test", "me");
+                    songs.add(song);
                 }, error -> {
                     // TODO: Handle error
 
