@@ -9,10 +9,8 @@ import android.util.Log;
 import android.view.Window;
 import android.widget.Button;
 
-
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-
 
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
@@ -24,10 +22,16 @@ public class AuthActivity extends AppCompatActivity {
     private static final String REDIRECT_URI = "http://com.gauravandleo.analyticsforspotify/callback";
     private static final int REQUEST_CODE = 1337;
     private static final String SCOPES =
-            "user-read-recently-played,user-top-read,user-library-modify,playlist-modify-private,user-follow-read,user-read-email,user-read-private";
+            "user-read-recently-played," +
+            "user-top-read," +
+            "user-library-modify," +
+            "playlist-modify-private," +
+            "user-follow-read," +
+            "user-read-email," +
+            "user-read-private";
 
     private SharedPreferences.Editor editor;
-    private SharedPreferences msharedPreferences;
+    private SharedPreferences sharedPreferences;
 
     private RequestQueue queue;
 
@@ -42,7 +46,7 @@ public class AuthActivity extends AppCompatActivity {
         Button login = findViewById(R.id.login);
         login.setOnClickListener(unused -> authenticateSpotify());
 
-        msharedPreferences = this.getSharedPreferences("SPOTIFY", 0);
+        sharedPreferences = this.getSharedPreferences("SPOTIFY", 0);
         queue = Volley.newRequestQueue(this);
     }
 
@@ -51,7 +55,6 @@ public class AuthActivity extends AppCompatActivity {
                 .Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI)
                 .setShowDialog(true)
                 .setScopes(new String[]{SCOPES});
-        //builder.setScopes(new String[]{SCOPES});
         AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
     }
@@ -87,11 +90,11 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     private void waitForUserInfo() {
-        UserRequest userRequest = new UserRequest(queue, msharedPreferences);
+        UserRequest userRequest = new UserRequest(queue, sharedPreferences);
         userRequest.get(() -> {
             User user = userRequest.getUser();
             editor = getSharedPreferences("SPOTIFY", 0).edit();
-            editor.putString("userid", user.id);
+            editor.putString("userid", user.getId());
             Log.d("STARTING", "GOT USER INFORMATION");
             // We use commit instead of apply because we need the information stored immediately
             editor.commit();

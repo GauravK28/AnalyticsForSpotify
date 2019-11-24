@@ -8,44 +8,63 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class TopTracksRequest {
 
     //GETS all time top tracks
-    private final String ENDPOINT =  "https://api.spotify.com/v1/me/top/tracks?limit=2&time_range=long_term";
+    private String ENDPOINT =  "https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=";
     private ArrayList<Song> songs = new ArrayList<>();
     private SharedPreferences sharedPreferences;
     private RequestQueue queue;
 
-    public TopTracksRequest (Context context) {
+    public TopTracksRequest (Context context, String time_range) {
         sharedPreferences = context.getSharedPreferences("SPOTIFY", 0);
         queue = Volley.newRequestQueue(context);
+        ENDPOINT += time_range;
     }
 
     public ArrayList<Song> getSongs() {
         return songs;
     }
 
-    public ArrayList<Song> getTopTracks(final VolleyCallBack callBack) {
+    public ArrayList<Song> getTopTracks(final VolleyCallBack callBack){
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, ENDPOINT, null, response -> {
 
-                    String json = response.toString();
-                    JsonObject recentSongs = new JsonParser().parse(json).getAsJsonObject();
-                    System.out.println("PRINTS RECENT SONGS IN JSON");
-                    System.out.println(recentSongs);
+                    Gson gson = new Gson();
+                    try {
+                        JSONArray items = response.getJSONArray("items");
+                        System.out.println("ITEMS SIZE" + items.length());
+                        Song song = null;
+                        for (int i = 0; i < items.length(); i++) {
+                            JSONObject track = items.getJSONObject(i);
+                            song = gson.fromJson(track.toString(), Song.class);
+                            JSONArray artist = track.getJSONArray("artists");
+                            String s = artist.getJSONObject(0).getString("name");
+                            song.setArtist(s);
+                            songs.add(song);
+                        }
+                        for(Song track: songs) {
+                            System.out.println(track);
+                        }
+                    } catch (JSONException e) {
+                        System.out.println("JSON response for getTopTracks is null");
+                        System.out.println(e);
+                    }
+
                     callBack.onSuccess();
-                    Song song = new Song("test", "me");
-                    songs.add(song);
                 }, error -> {
-                    // TODO: Handle error
+                    System.out.println("Uh oh, Volley Request failed");
 
                 }) {
             @Override

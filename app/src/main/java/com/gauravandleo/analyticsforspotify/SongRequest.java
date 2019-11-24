@@ -8,6 +8,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -37,6 +38,9 @@ public class SongRequest {
     public ArrayList<Song> getRecentlyPlayedTracks(final VolleyCallBack callBack) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, ENDPOINT, null, response -> {
+
+                    //Gson gson = new Gson();
+                    //user = gson.fromJson(response.toString(), User.class);
 
                     String json = response.toString();
                     JsonObject recentSongs = new JsonParser().parse(json).getAsJsonObject();
