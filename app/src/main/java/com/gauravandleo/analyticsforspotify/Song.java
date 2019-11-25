@@ -5,6 +5,8 @@ public class Song {
     private String id;
     private String name;
     private String artist;
+    private String url;
+    private String albumArtUrl;
 
     public Song(String id, String name) {
         this.name = name;
@@ -15,6 +17,14 @@ public class Song {
         this.artist = artist;
     }
 
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setAlbumArtUrl() {
+
+    }
+
     public String getId() {
         return id;
     }
@@ -23,8 +33,7 @@ public class Song {
         return name;
     }
 
-
     public String toString() {
-        return name + " by " + artist;
+        return name + " by " + artist + " url " + url + " albumArt " + albumArtUrl;
     }
 }

@@ -49,9 +49,19 @@ public class TopTracksRequest {
                         for (int i = 0; i < items.length(); i++) {
                             JSONObject track = items.getJSONObject(i);
                             song = gson.fromJson(track.toString(), Song.class);
-                            JSONArray artist = track.getJSONArray("artists");
-                            String s = artist.getJSONObject(0).getString("name");
-                            song.setArtist(s);
+
+                            JSONArray artists = track.getJSONArray("artists");
+                            String artist = artists.getJSONObject(0).getString("name");
+                            song.setArtist(artist);
+
+                            String artistHref = artists.getJSONObject(0).getString("href");
+                            //String albumArtUrl =
+
+
+                            JSONObject externalUrls = track.getJSONObject("external_urls");
+                            String spotifyUrl = externalUrls.getString("spotify");
+                            song.setUrl(spotifyUrl);
+
                             songs.add(song);
                         }
                         for(Song track: songs) {
@@ -64,7 +74,7 @@ public class TopTracksRequest {
 
                     callBack.onSuccess();
                 }, error -> {
-                    System.out.println("Uh oh, Volley Request failed");
+                    System.out.println("Uh oh, Volley Request failed - getTopTrack()");
 
                 }) {
             @Override
