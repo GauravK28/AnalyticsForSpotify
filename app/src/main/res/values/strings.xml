@@ -9,5 +9,8 @@
     <string name="_1_month">1 Month</string>
     <string name="_6_months">6 Months</string>
     <string name="all_time">All Time</string>
+    <string name="song_title">Song Title</string>
+    <string name="artist_name">artist name</string>
+    <string name="_1">1</string>
 
 </resources>

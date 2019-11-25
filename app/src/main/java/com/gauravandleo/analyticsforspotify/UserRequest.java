@@ -29,7 +29,6 @@ public class UserRequest {
     public void get(final VolleyCallBack callBack) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(ENDPOINT, null, response -> {
 
-
             Gson gson = new Gson();
             user = gson.fromJson(response.toString(), User.class);
 
