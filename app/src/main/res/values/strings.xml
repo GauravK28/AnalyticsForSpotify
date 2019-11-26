@@ -12,5 +12,7 @@
     <string name="song_title">Song Title</string>
     <string name="artist_name">artist name</string>
     <string name="_1">1</string>
+    <string name="average_song_length">Average song length:</string>
+    <string name="album_art">album art</string>
 
 </resources>

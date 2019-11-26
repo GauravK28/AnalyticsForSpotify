@@ -21,14 +21,13 @@ public class AuthActivity extends AppCompatActivity {
     private static final String CLIENT_ID = "bb4f93613f0c40d7952b83554e681ec5";
     private static final String REDIRECT_URI = "http://com.gauravandleo.analyticsforspotify/callback";
     private static final int REQUEST_CODE = 1337;
-    private static final String SCOPES =
-            "user-read-recently-played," +
-            "user-top-read," +
-            "user-library-modify," +
-            "playlist-modify-private," +
-            "user-follow-read," +
-            "user-read-email," +
-            "user-read-private";
+    private static final String SCOPES = "user-read-recently-played,"
+                    + "user-top-read,"
+                    + "user-library-modify,"
+                    + "playlist-modify-private,"
+                    + "user-follow-read,"
+                    + "user-read-email,"
+                    + "user-read-private";
 
     private SharedPreferences.Editor editor;
     private SharedPreferences sharedPreferences;

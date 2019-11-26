@@ -13,7 +13,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="1dp"
-        android:text="Average song length: "
+        android:text="@string/average_song_length"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timeFrame" />
 
@@ -85,18 +85,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/songList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/songList"
-                android:layout_width="412dp"
-                android:layout_height="631dp"
-                android:orientation="vertical">
-
-            </LinearLayout>
-        </LinearLayout>
+            android:orientation="vertical" />
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -55,20 +55,16 @@ public class MainActivity extends AppCompatActivity {
         songList = findViewById(R.id.songList);
         int id = timeFrame.getCheckedRadioButtonId();
         if (id == -1 || id == R.id.allTime) {
-            songList.removeAllViews();
 
             //time_range can be  long_term, medium_term, short_term
             topTracksRequest = new TopTracksRequest(getApplicationContext(), "long_term");
             getTopTracks();
-
             // TODO: add the average song length
 
         } else if (id == R.id.sixMonths) {
-            songList.removeAllViews();
             topTracksRequest = new TopTracksRequest(getApplicationContext(), "medium_term");
             getTopTracks();
         } else if (id == R.id.oneMonth) {
-            songList.removeAllViews();
             topTracksRequest = new TopTracksRequest(getApplicationContext(), "short_term");
             getTopTracks();
         }
@@ -108,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
             songList.addView(trackChunk);
             System.out.println(i + " " + song.getName());
         }
+        System.out.println("CHILD COUNT " + songList.getChildCount());
     }
 
     private void backToAuthActivity() {
