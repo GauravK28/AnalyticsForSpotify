@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
             backToAuthActivity();
         });
 
+        //TODO:  Create data structures for tracks 6months, 1month; artists all time, 6months, 1 month; genres alltime, 6months, 1 month
+
         RadioGroup timeFrame = findViewById(R.id.timeFrame);
         songList = findViewById(R.id.songList);
         int id = timeFrame.getCheckedRadioButtonId();
