@@ -10,14 +10,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
@@ -27,16 +26,17 @@ public class MainActivity extends AppCompatActivity {
 
     private TopTracksRequest topTracksRequest;
 
-    private List<Song> topTracks;
-    private List<Song> topTracksAllTime = new ArrayList<>();
-    private List<Song> topTracksSixMonths = new ArrayList<>();
-    private List<Song> topTracksOneMonth = new ArrayList<>();
+    private List<Song> topTracksAllTime;
+    private List<Song> topTracksSixMonths;
+    private List<Song> topTracksOneMonth;
 
     final int radius = 5;
     final int margin = 5;
     final Transformation transformation = new RoundedCornersTransformation(radius, margin);
 
-    LinearLayout songList;
+    private LinearLayout allTimeList;
+    private LinearLayout sixMonthsList;
+    private LinearLayout oneMonthList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,17 +53,17 @@ public class MainActivity extends AppCompatActivity {
             backToAuthActivity();
         });
 
-
-        //TODO:  Create data structures for tracks 6months, 1month
         //TODO: add summary page
         //TODO: allow user to create a playlist with top songs
         //TODO: add sports standing thing
         //TODO: add clickable links to the songs
 
-        songList = findViewById(R.id.songList);
+        allTimeList = findViewById(R.id.allTimeList);
+        sixMonthsList = findViewById(R.id.sixMonthsList);
+        oneMonthList = findViewById(R.id.oneMonthList);
 
         //time_range can be  long_term, medium_term, short_term
-        topTracksRequest = new TopTracksRequest(getApplicationContext(), "long_term");
+        topTracksRequest = new TopTracksRequest(getApplicationContext());
         getTopTracks();
 
         initializeButtons();
@@ -77,44 +77,60 @@ public class MainActivity extends AppCompatActivity {
         sixMonths.setTextColor(Color.LTGRAY);
         oneMonth.setTextColor(Color.LTGRAY);
 
+        ScrollView allTimeScroll = findViewById(R.id.allTimeScroll);
+        ScrollView sixMonthScroll = findViewById(R.id.sixMonthScroll);
+        ScrollView oneMonthScroll = findViewById(R.id.oneMonthScroll);
+        allTimeScroll.setVisibility(View.VISIBLE);
+        sixMonthScroll.setVisibility(View.GONE);
+        oneMonthScroll.setVisibility(View.GONE);
+
         allTime.setOnClickListener(unused -> {
             allTime.setTextColor(Color.BLACK);
             sixMonths.setTextColor(Color.LTGRAY);
             oneMonth.setTextColor(Color.LTGRAY);
-            topTracksRequest = new TopTracksRequest(getApplicationContext(), "long_term");
-            getTopTracks();
+            allTimeScroll.setVisibility(View.VISIBLE);
+            sixMonthScroll.setVisibility(View.GONE);
+            oneMonthScroll.setVisibility(View.GONE);
+
         });
         sixMonths.setOnClickListener(unused -> {
             allTime.setTextColor(Color.LTGRAY);
             sixMonths.setTextColor(Color.BLACK);
             oneMonth.setTextColor(Color.LTGRAY);
-            topTracksRequest = new TopTracksRequest(getApplicationContext(), "medium_term");
-            getTopTracks();
+            allTimeScroll.setVisibility(View.GONE);
+            sixMonthScroll.setVisibility(View.VISIBLE);
+            oneMonthScroll.setVisibility(View.GONE);
+
         });
         oneMonth.setOnClickListener(unused -> {
             allTime.setTextColor(Color.LTGRAY);
             sixMonths.setTextColor(Color.LTGRAY);
             oneMonth.setTextColor(Color.BLACK);
-            topTracksRequest = new TopTracksRequest(getApplicationContext(), "short_term");
-            getTopTracks();
+            allTimeScroll.setVisibility(View.GONE);
+            sixMonthScroll.setVisibility(View.GONE);
+            oneMonthScroll.setVisibility(View.VISIBLE);
+
         });
     }
-
-
-
 
     private void getTopTracks() {
         topTracksRequest.getTopTracks(() -> {
-            topTracks = topTracksRequest.getSongsAllTime();
-            addSongs();
+            topTracksAllTime = topTracksRequest.getSongsAllTime();
+            addSongs(allTimeList, topTracksAllTime);
+
+            topTracksSixMonths = topTracksRequest.getSongsSixMonth();
+            addSongs(sixMonthsList, topTracksSixMonths);
+
+            topTracksOneMonth = topTracksRequest.getSongsOneMonth();
+            addSongs(oneMonthList, topTracksOneMonth);
         });
     }
 
-    private void addSongs() {
-        songList.removeAllViews();
-        for (int i = 0; i < topTracks.size(); i++) {
-            View trackChunk = getLayoutInflater().inflate(R.layout.chunk_tracks, songList, false);
-            Song song = topTracks.get(i);
+    private void addSongs(LinearLayout list, List<Song> tracks) {
+        list.removeAllViews();
+        for (int i = 0; i < tracks.size(); i++) {
+            View trackChunk = getLayoutInflater().inflate(R.layout.chunk_tracks,list, false);
+            Song song = tracks.get(i);
 
             //Number
             TextView number = trackChunk.findViewById(R.id.number);
@@ -133,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
             TextView artist = trackChunk.findViewById(R.id.artist);
             artist.setText(song.getArtist());
 
-            songList.addView(trackChunk);
+            list.addView(trackChunk);
         }
     }
 

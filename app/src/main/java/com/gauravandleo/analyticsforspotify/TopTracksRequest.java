@@ -22,27 +22,40 @@ import java.util.Map;
 public class TopTracksRequest {
 
     //GETS all time top tracks
-    private String ENDPOINT_ALL_TIME =  "https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=long_term";
-    private String ENDPOINT_SIX_MONTHS =  "https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=medium_term";
-    private String ENDPOINT_ONE_MONTH =  "https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=short_term";
+    private final String ENDPOINT_ALL_TIME =  "https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=long_term";
+    private final String ENDPOINT_SIX_MONTHS =  "https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=medium_term";
+    private final String ENDPOINT_ONE_MONTH =  "https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=short_term";
+
     private List<Song> songsAllTime = new ArrayList<>();
+    private List<Song> songsSixMonth = new ArrayList<>();
+    private List<Song> songsOneMonth = new ArrayList<>();
     private SharedPreferences sharedPreferences;
     private RequestQueue queue;
 
-    public TopTracksRequest (Context context, String time_range) {
+    public TopTracksRequest (Context context) {
         sharedPreferences = context.getSharedPreferences("SPOTIFY", 0);
         queue = Volley.newRequestQueue(context);
         //ENDPOINT_ALL_TIME = ENDPOINT_ALL_TIME + time_range;
     }
 
-    public List<Song> getSongsAllTime() {
-        return songsAllTime;
+//    public List<Song> getSongs() {
+//        return songs;
+//    }
+    public List<Song> getSongsAllTime() { return songsAllTime; }
+    public List<Song> getSongsSixMonth() { return songsSixMonth; }
+    public List<Song> getSongsOneMonth() { return songsOneMonth; }
+
+    public void getTopTracks(final VolleyCallBack callBack){
+        songsAllTime = get(callBack, ENDPOINT_ALL_TIME);
+        songsSixMonth = get(callBack, ENDPOINT_SIX_MONTHS);
+        songsOneMonth = get(callBack, ENDPOINT_ONE_MONTH);
+
     }
 
-    public List<Song> getTopTracks(final VolleyCallBack callBack){
-
+    private List<Song> get(final VolleyCallBack callBack, String endpoint) {
+        List<Song> songs = new ArrayList<>();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, ENDPOINT_ALL_TIME, null, response -> {
+                (Request.Method.GET, endpoint, null, response -> {
 
                     Gson gson = new Gson();
                     try {
@@ -70,7 +83,7 @@ public class TopTracksRequest {
                             String spotifyUrl = externalUrls.getString("spotify");
                             song.setUrl(spotifyUrl);
 
-                            songsAllTime.add(song);
+                            songs.add(song);
                         }
 //                        for(Song track: songsAllTime) {
 //                            System.out.println(track);
@@ -93,7 +106,8 @@ public class TopTracksRequest {
             }
         };
         queue.add(jsonObjectRequest);
-        return songsAllTime;
+        return songs;
     }
+
 
 }
