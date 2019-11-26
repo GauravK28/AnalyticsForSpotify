@@ -22,30 +22,31 @@ import java.util.Map;
 public class TopTracksRequest {
 
     //GETS all time top tracks
-    private String ENDPOINT =  "https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=";
-    private List<Song> songs = new ArrayList<>();
+    private String ENDPOINT_ALL_TIME =  "https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=long_term";
+    private String ENDPOINT_SIX_MONTHS =  "https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=medium_term";
+    private String ENDPOINT_ONE_MONTH =  "https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=short_term";
+    private List<Song> songsAllTime = new ArrayList<>();
     private SharedPreferences sharedPreferences;
     private RequestQueue queue;
 
     public TopTracksRequest (Context context, String time_range) {
         sharedPreferences = context.getSharedPreferences("SPOTIFY", 0);
         queue = Volley.newRequestQueue(context);
-        ENDPOINT = ENDPOINT + time_range;
+        //ENDPOINT_ALL_TIME = ENDPOINT_ALL_TIME + time_range;
     }
 
-    public List<Song> getSongs() {
-        return songs;
+    public List<Song> getSongsAllTime() {
+        return songsAllTime;
     }
 
     public List<Song> getTopTracks(final VolleyCallBack callBack){
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, ENDPOINT, null, response -> {
+                (Request.Method.GET, ENDPOINT_ALL_TIME, null, response -> {
 
                     Gson gson = new Gson();
                     try {
                         JSONArray items = response.getJSONArray("items");
-                        System.out.println("ITEMS SIZE" + items.length());
                         Song song;
                         for (int i = 0; i < items.length(); i++) {
                             //gets song name, duration, and id
@@ -69,11 +70,11 @@ public class TopTracksRequest {
                             String spotifyUrl = externalUrls.getString("spotify");
                             song.setUrl(spotifyUrl);
 
-                            songs.add(song);
+                            songsAllTime.add(song);
                         }
-                        for(Song track: songs) {
-                            System.out.println(track);
-                        }
+//                        for(Song track: songsAllTime) {
+//                            System.out.println(track);
+//                        }
                     } catch (JSONException e) {
                         System.out.println("JSON response for getTopTracks is null");
                         System.out.println(e);
@@ -92,7 +93,7 @@ public class TopTracksRequest {
             }
         };
         queue.add(jsonObjectRequest);
-        return songs;
+        return songsAllTime;
     }
 
 }

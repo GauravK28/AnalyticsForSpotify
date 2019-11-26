@@ -50,6 +50,14 @@ public class Song {
         return duration_ms;
     }
 
+    public boolean equals(Object other) {
+        Song song = (Song) other;
+        if (name.equals(song.name)) {
+            return true;
+        }
+        return false;
+    }
+
     public String toString() {
         return name + " by " + artist + " url " + url + " duration " + duration_ms + " albumArtUrl " + albumArtUrl ;
     }
