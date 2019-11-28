@@ -8,6 +8,7 @@ public class Song {
     private String url;
     private String albumArtUrl;
     private int duration_ms;
+    private String uri;
 
     public Song(String id, String name) {
         this.name = name;
@@ -48,6 +49,10 @@ public class Song {
 
     public int getDuration_ms() {
         return duration_ms;
+    }
+
+    public String getUri() {
+        return uri;
     }
 
     public boolean equals(Object other) {

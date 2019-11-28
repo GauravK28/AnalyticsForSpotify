@@ -39,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout sixMonthsList;
     private LinearLayout oneMonthList;
 
+    ScrollView allTimeScroll;
+    ScrollView sixMonthScroll;
+    ScrollView oneMonthScroll;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,13 +77,15 @@ public class MainActivity extends AppCompatActivity {
         Button allTime = findViewById(R.id.allTime);
         Button sixMonths = findViewById(R.id.sixMonths);
         Button oneMonth = findViewById(R.id.oneMonth);
+
         allTime.setTextColor(Color.BLACK);
         sixMonths.setTextColor(Color.LTGRAY);
         oneMonth.setTextColor(Color.LTGRAY);
 
-        ScrollView allTimeScroll = findViewById(R.id.allTimeScroll);
-        ScrollView sixMonthScroll = findViewById(R.id.sixMonthScroll);
-        ScrollView oneMonthScroll = findViewById(R.id.oneMonthScroll);
+        allTimeScroll = findViewById(R.id.allTimeScroll);
+        sixMonthScroll = findViewById(R.id.sixMonthScroll);
+        oneMonthScroll = findViewById(R.id.oneMonthScroll);
+
         allTimeScroll.setVisibility(View.VISIBLE);
         sixMonthScroll.setVisibility(View.GONE);
         oneMonthScroll.setVisibility(View.GONE);
@@ -125,6 +131,23 @@ public class MainActivity extends AppCompatActivity {
             addSongs(oneMonthList, topTracksOneMonth);
 
             getSummary(topTracksAllTime, topTracksSixMonths, topTracksOneMonth);
+
+            Button createPlaylist = findViewById(R.id.createPlaylist);
+            createPlaylist.setOnClickListener(unused -> {
+                if (allTimeScroll.getVisibility() == View.VISIBLE) {
+                    CreatePlaylistRequest createPlaylistRequest =
+                            new CreatePlaylistRequest(this, "All Time Top Songs", topTracksAllTime);
+                    createPlaylistRequest.preparePlaylistPayload();
+                } else if (sixMonthScroll.getVisibility() == View.VISIBLE) {
+                    CreatePlaylistRequest createPlaylistRequest =
+                            new CreatePlaylistRequest(this, "6 Month Top Songs", topTracksSixMonths);
+                    createPlaylistRequest.preparePlaylistPayload();
+                } else {
+                    CreatePlaylistRequest createPlaylistRequest =
+                            new CreatePlaylistRequest(this, "One Month Top Songs", topTracksOneMonth);
+                    createPlaylistRequest.preparePlaylistPayload();
+                }
+            });
         });
     }
 

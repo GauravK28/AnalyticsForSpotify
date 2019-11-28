@@ -28,7 +28,7 @@ public class AuthActivity extends AppCompatActivity {
                     + "user-top-read,"
                     + "user-library-modify,"
                     + "playlist-modify-private,"
-                    + "playlist-modify-public"
+                    + "playlist-modify-public,"
                     + "user-follow-read,"
                     + "user-read-email,"
                     + "user-read-private";
