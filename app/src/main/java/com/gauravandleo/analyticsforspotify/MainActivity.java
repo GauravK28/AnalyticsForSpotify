@@ -3,6 +3,7 @@ package com.gauravandleo.analyticsforspotify;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -53,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
             backToAuthActivity();
         });
 
-        //TODO: add summary page
         //TODO: allow user to create a playlist with top songs
         //TODO: add sports standing thing
         //TODO: add clickable links to the songs
@@ -123,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
 
             topTracksOneMonth = topTracksRequest.getSongsOneMonth();
             addSongs(oneMonthList, topTracksOneMonth);
+
+            getSummary(topTracksAllTime, topTracksSixMonths, topTracksOneMonth);
         });
     }
 
@@ -151,6 +153,14 @@ public class MainActivity extends AppCompatActivity {
 
             list.addView(trackChunk);
         }
+    }
+
+    private void getSummary(List<Song> allTime, List<Song> sixMonths, List<Song> oneMonth) {
+        Summary summary = new Summary(this, allTime, sixMonths, oneMonth);
+        Button sum = findViewById(R.id.summary);
+        sum.setOnClickListener(unused -> {
+            summary.display();
+        });
     }
 
     private void backToAuthActivity() {

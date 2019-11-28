@@ -35,12 +35,8 @@ public class TopTracksRequest {
     public TopTracksRequest (Context context) {
         sharedPreferences = context.getSharedPreferences("SPOTIFY", 0);
         queue = Volley.newRequestQueue(context);
-        //ENDPOINT_ALL_TIME = ENDPOINT_ALL_TIME + time_range;
     }
 
-//    public List<Song> getSongs() {
-//        return songs;
-//    }
     public List<Song> getSongsAllTime() { return songsAllTime; }
     public List<Song> getSongsSixMonth() { return songsSixMonth; }
     public List<Song> getSongsOneMonth() { return songsOneMonth; }
@@ -54,8 +50,8 @@ public class TopTracksRequest {
 
     private List<Song> get(final VolleyCallBack callBack, String endpoint) {
         List<Song> songs = new ArrayList<>();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, endpoint, null, response -> {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET, endpoint, null, response -> {
 
                     Gson gson = new Gson();
                     try {
