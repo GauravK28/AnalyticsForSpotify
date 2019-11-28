@@ -3,7 +3,6 @@ package com.gauravandleo.analyticsforspotify;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -39,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout sixMonthsList;
     private LinearLayout oneMonthList;
 
-    ScrollView allTimeScroll;
-    ScrollView sixMonthScroll;
-    ScrollView oneMonthScroll;
+    private ScrollView allTimeScroll;
+    private ScrollView sixMonthScroll;
+    private ScrollView oneMonthScroll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
             backToAuthActivity();
         });
 
-        //TODO: allow user to create a playlist with top songs
         //TODO: add sports standing thing
         //TODO: add clickable links to the songs
 
@@ -132,22 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
             getSummary(topTracksAllTime, topTracksSixMonths, topTracksOneMonth);
 
-            Button createPlaylist = findViewById(R.id.createPlaylist);
-            createPlaylist.setOnClickListener(unused -> {
-                if (allTimeScroll.getVisibility() == View.VISIBLE) {
-                    CreatePlaylistRequest createPlaylistRequest =
-                            new CreatePlaylistRequest(this, "All Time Top Songs", topTracksAllTime);
-                    createPlaylistRequest.preparePlaylistPayload();
-                } else if (sixMonthScroll.getVisibility() == View.VISIBLE) {
-                    CreatePlaylistRequest createPlaylistRequest =
-                            new CreatePlaylistRequest(this, "6 Month Top Songs", topTracksSixMonths);
-                    createPlaylistRequest.preparePlaylistPayload();
-                } else {
-                    CreatePlaylistRequest createPlaylistRequest =
-                            new CreatePlaylistRequest(this, "One Month Top Songs", topTracksOneMonth);
-                    createPlaylistRequest.preparePlaylistPayload();
-                }
-            });
+            setPlaylistButton();
         });
     }
 
@@ -176,6 +159,27 @@ public class MainActivity extends AppCompatActivity {
 
             list.addView(trackChunk);
         }
+    }
+
+    private void setPlaylistButton() {
+        Button createPlaylist = findViewById(R.id.createPlaylist);
+        createPlaylist.setOnClickListener(unused -> {
+            if (allTimeScroll.getVisibility() == View.VISIBLE) {
+                CreatePlaylistRequest createPlaylistRequest =
+                        new CreatePlaylistRequest(this, "All Time Top Songs", topTracksAllTime);
+                createPlaylistRequest.preparePlaylistPayload();
+
+            } else if (sixMonthScroll.getVisibility() == View.VISIBLE) {
+                CreatePlaylistRequest createPlaylistRequest =
+                        new CreatePlaylistRequest(this, "6 Month Top Songs", topTracksSixMonths);
+                createPlaylistRequest.preparePlaylistPayload();
+
+            } else {
+                CreatePlaylistRequest createPlaylistRequest =
+                        new CreatePlaylistRequest(this, "One Month Top Songs", topTracksOneMonth);
+                createPlaylistRequest.preparePlaylistPayload();
+            }
+        });
     }
 
     private void getSummary(List<Song> allTime, List<Song> sixMonths, List<Song> oneMonth) {

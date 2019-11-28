@@ -2,6 +2,8 @@ package com.gauravandleo.analyticsforspotify;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -33,9 +35,8 @@ public class CreatePlaylistRequest {
 
     private SharedPreferences sharedPreferences;
     private RequestQueue queue;
+    private Context context;
 
-    //TODO: add functionality in main activity
-    //TODO: add POST request to add songs to playlist
     //TODO: GET request to get the user's playlist to check if a "TOP" playlist has already been created
     //TODO:        if it has, open a alertdialog to ask if they want to replace the playlist's tracks with the updated "TOP"
     //TODO:                 so then need to create a PUT request to replace the track in a playlist
@@ -48,6 +49,7 @@ public class CreatePlaylistRequest {
     public CreatePlaylistRequest(Context context, String name, List<Song> list) {
         sharedPreferences = context.getSharedPreferences("SPOTIFY", 0);
         queue = Volley.newRequestQueue(context);
+        this.context = context;
 
         newPlaylistName = name;
 
@@ -55,7 +57,6 @@ public class CreatePlaylistRequest {
         playlistEndpoint = "https://api.spotify.com/v1/users/" + userId + "/playlists";
 
         songs = list;
-
     }
 
     public void preparePlaylistPayload() {
@@ -98,6 +99,9 @@ public class CreatePlaylistRequest {
 
     private JsonObjectRequest addTracks(JSONObject payload) {
         return new JsonObjectRequest(Request.Method.POST, addTracksEndpoint, payload, response -> {
+            Toast toast = Toast.makeText(context, newPlaylistName + " playlist created", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
 
         }, error -> System.out.println("Uh oh, Volley POST Request failed -addTracks()")) {
 
@@ -151,7 +155,6 @@ public class CreatePlaylistRequest {
         queue.add(jsonObjectRequest);
     }
 
-
     private void newPlaylist(JSONObject payload) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, playlistEndpoint, payload, response -> {
             getPlaylists(() -> {
@@ -159,7 +162,6 @@ public class CreatePlaylistRequest {
                 addTracksEndpoint = "https://api.spotify.com/v1/playlists/" + newPlaylistId + "/tracks";
                 prepareSongPayload();
             });
-
         }, error -> System.out.println("Uh oh, Volley POST Request failed - newPlaylist()")) {
 
             @Override
