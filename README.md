@@ -9,6 +9,7 @@ Analytics about a user's Spotify listening habits over time
 * [Android Picasso](https://square.github.io/picasso/)
   * [Picasso Transformations Library](https://github.com/wasabeef/picasso-transformations)
 * [Tutorial used to add Spotify Authentication](https://towardsdatascience.com/using-the-spotify-api-with-your-android-application-the-essentials-1a3c1bc36b9e)
+* [Json Formatter](https://jsonformatter.org/json-pretty-print)
 
 ## Functionalities
 * Users can log into their spotify account(Premium not required)
