@@ -17,7 +17,6 @@ import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
-
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;

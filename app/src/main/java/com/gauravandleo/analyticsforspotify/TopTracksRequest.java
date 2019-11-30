@@ -45,7 +45,6 @@ public class TopTracksRequest {
         songsAllTime = get(callBack, ENDPOINT_ALL_TIME);
         songsSixMonth = get(callBack, ENDPOINT_SIX_MONTHS);
         songsOneMonth = get(callBack, ENDPOINT_ONE_MONTH);
-
     }
 
     private List<Song> get(final VolleyCallBack callBack, String endpoint) {
@@ -80,9 +79,7 @@ public class TopTracksRequest {
 
                             songs.add(song);
                         }
-//                        for(Song track: songsAllTime) {
-//                            System.out.println(track);
-//                        }
+
                     } catch (JSONException e) {
                         System.out.println("JSON response for getTopTracks is null");
                         System.out.println(e);
