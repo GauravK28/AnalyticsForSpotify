@@ -28,8 +28,8 @@ public class Summary {
                 + "    All Time: " +  averageTime(topTracksAllTime) + "\n"
                 + "    Six Months: " +  averageTime(topTracksSixMonths) + "\n"
                 + "    One Month: " +  averageTime(topTracksOneMonth) + "\n\n"
-                + "Largest song drop:             \n From  to \n"
-                + "Largest song rise:             \n From  to \n");
+                + largestRise() + "\n"
+                + largestDrop());
         builder.setPositiveButton("OK", null);
         builder.create().show();
     }
@@ -44,5 +44,70 @@ public class Summary {
         int minutes = avgMs / 60000;
         int seconds = (avgMs % 60000) / 1000;
         return minutes + "min " + seconds + "s";
+    }
+
+    private String largestRise() {
+        Song song = null;
+        int initial = 0;
+        int end = 0;
+        int diff= 0;
+        for (int i = 0; i < topTracksAllTime.size(); i++) {
+            if (topTracksOneMonth.contains(topTracksAllTime.get(i))) {
+                if (index(topTracksAllTime.get(i)) < i && Math.abs(index(topTracksAllTime.get(i)) - i) > diff) {
+                    initial = i;
+                    end = index(topTracksAllTime.get(i));
+                    diff = Math.abs(index(topTracksAllTime.get(i)) - i);
+                    song = topTracksAllTime.get(i);
+                }
+
+            }
+        }
+        initial += 1;
+        end += 1;
+        return "Largest song rise: " +  song.getName() + "            \nFrom "
+                + initial + getSuffix(initial) + " to " + end + getSuffix(end) + "\n";
+    }
+
+    private String largestDrop() {
+        Song song = null;
+        int initial = 0;
+        int end = 0;
+        int diff= 0;
+        for (int i = 0; i < topTracksAllTime.size(); i++) {
+            if (topTracksOneMonth.contains(topTracksAllTime.get(i))) {
+                if (index(topTracksAllTime.get(i)) > i && Math.abs(index(topTracksAllTime.get(i)) - i) > diff) {
+                    initial = i;
+                    end = index(topTracksAllTime.get(i));
+                    diff = Math.abs(index(topTracksAllTime.get(i)) - i);
+                    song = topTracksAllTime.get(i);
+                }
+
+            }
+        }
+        initial += 1;
+        end += 1;
+        return "Largest song drop: " +  song.getName() + "            \nFrom "
+                + initial + getSuffix(initial) + " to " + end + getSuffix(end) + "\n";
+    }
+
+    private int index(Song song) {
+        for (int i = 0; i < topTracksOneMonth.size(); i++) {
+            if (song.equals(topTracksOneMonth.get(i))) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    String getSuffix(int n) {
+        if (n >= 11 && n <= 13) {
+            return "th";
+        }
+        switch (n % 10) {
+            case 1:  return "st";
+            case 2:  return "nd";
+            case 3:  return "rd";
+            default: return "th";
+        }
     }
 }

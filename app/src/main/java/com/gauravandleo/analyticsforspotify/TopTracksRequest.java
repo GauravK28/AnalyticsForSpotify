@@ -56,11 +56,10 @@ public class TopTracksRequest {
                     Gson gson = new Gson();
                     try {
                         JSONArray items = response.getJSONArray("items");
-                        Song song;
                         for (int i = 0; i < items.length(); i++) {
                             //gets song name, duration, and id
                             JSONObject track = items.getJSONObject(i);
-                            song = gson.fromJson(track.toString(), Song.class);
+                            Song song = gson.fromJson(track.toString(), Song.class);
 
                             //gets artist
                             JSONArray artists = track.getJSONArray("artists");

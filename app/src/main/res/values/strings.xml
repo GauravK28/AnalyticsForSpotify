@@ -5,7 +5,7 @@
     <string name="username">Username</string>
     <string name="last_song_played">Last Song Played</string>
     <string name="logout">Log out</string>
-    <string name="top_tracks">Top Tracks</string>
+    <string name="top_tracks">My Top Tracks</string>
     <string name="_1_month">1 Month</string>
     <string name="_6_months">6 Months</string>
     <string name="all_time">All Time</string>

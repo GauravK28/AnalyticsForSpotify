@@ -40,11 +40,6 @@ public class CreatePlaylistRequest {
     //TODO: GET request to get the user's playlist to check if a "TOP" playlist has already been created
     //TODO:        if it has, open a alertdialog to ask if they want to replace the playlist's tracks with the updated "TOP"
     //TODO:                 so then need to create a PUT request to replace the track in a playlist
-    //TODO: add a toast to notify user that the playlist was created
-
-    //after creating the new playlist
-    //do a get request to a get a list of the user's playlist to obtain the new playlist's ID
-    //then do POST request to add the songs to the playlist
 
     public CreatePlaylistRequest(Context context, String name, List<Song> list) {
         sharedPreferences = context.getSharedPreferences("SPOTIFY", 0);
@@ -175,9 +170,5 @@ public class CreatePlaylistRequest {
             }
         };
         queue.add(jsonObjectRequest);
-
-
     }
-
-
 }

@@ -17,6 +17,7 @@ import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
+
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
@@ -42,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
     private ScrollView sixMonthScroll;
     private ScrollView oneMonthScroll;
 
+    private TextView moved;
+    private ImageView placement;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +61,9 @@ public class MainActivity extends AppCompatActivity {
             backToAuthActivity();
         });
 
-        //TODO: add sports standing thing
-        //TODO: add clickable links to the songs
+        //TODO: add long press clickable spotify links to the songs
+        //TODO: add info page
+        //TODO: add ability to autosign in, or just make that the default feature
 
         allTimeList = findViewById(R.id.allTimeList);
         sixMonthsList = findViewById(R.id.sixMonthsList);
@@ -69,6 +74,106 @@ public class MainActivity extends AppCompatActivity {
         getTopTracks();
 
         initializeButtons();
+    }
+
+
+    private void getTopTracks() {
+        topTracksRequest.getTopTracks(() -> {
+            topTracksAllTime = topTracksRequest.getSongsAllTime();
+            addSongs(allTimeList, topTracksAllTime);
+
+            topTracksSixMonths = topTracksRequest.getSongsSixMonth();
+            addSongs(sixMonthsList, topTracksSixMonths);
+
+            topTracksOneMonth = topTracksRequest.getSongsOneMonth();
+            addSongs(oneMonthList, topTracksOneMonth);
+
+            getSummary(topTracksAllTime, topTracksSixMonths, topTracksOneMonth);
+
+            setPlaylistButton();
+        });
+    }
+
+    private void addSongs(LinearLayout list, List<Song> tracks) {
+        list.removeAllViews();
+        for (int i = 0; i < tracks.size(); i++) {
+            View trackChunk = getLayoutInflater().inflate(R.layout.chunk_tracks,list, false);
+            Song song = tracks.get(i);
+
+            //Number
+            TextView number = trackChunk.findViewById(R.id.number);
+            number.setText(Integer.toString(i + 1));
+
+            //Album art
+            ImageView albumArt = trackChunk.findViewById(R.id.albumArt);
+            String imageUrl = song.getAlbumArtUrl();
+            Picasso.get().load(imageUrl).transform(transformation).into(albumArt);
+
+            //Song title
+            TextView title = trackChunk.findViewById(R.id.song);
+            title.setText(song.getName());
+
+            //Song artist
+            TextView artist = trackChunk.findViewById(R.id.artist);
+            artist.setText(song.getArtist());
+
+            //Standings from All Time
+            moved = trackChunk.findViewById(R.id.moved);
+            moved.setVisibility(View.VISIBLE);
+
+            placement = trackChunk.findViewById(R.id.standing);
+            placement.setVisibility(View.VISIBLE);
+
+            if (list.getId() == R.id.allTimeList) {
+                moved.setVisibility(View.GONE);
+                placement.setVisibility(View.GONE);
+            } else if (list.getId() == R.id.sixMonthsList) {
+               setStanding(topTracksSixMonths, song);
+            } else {
+                setStanding(topTracksOneMonth, song);
+            }
+
+            list.addView(trackChunk);
+        }
+    }
+
+    private void setStanding(List<Song> list, Song song) {
+        moved.setText(String.valueOf(Math.abs(getDifference(list, song))));
+        //song went down
+        if (getDifference(list, song) < 0) {
+            placement.setImageResource(R.drawable.down_arrow);
+        //song went up
+        } else if (getDifference(list, song) != 51 && getDifference(list, song) > 0) {
+            placement.setImageResource(R.drawable.up_arrow);
+        //song is in same position
+        } else if (getDifference(list, song) == 0){
+            moved.setVisibility(View.INVISIBLE);
+            placement.setImageResource(R.drawable.dash);
+        //newly added song
+        } else {
+            moved.setVisibility(View.INVISIBLE);
+            placement.setImageResource(R.drawable.plus);
+        }
+    }
+
+    private int getDifference(List<Song> list, Song song) {
+        int initial = 0;
+        int end = 0;
+        if (topTracksAllTime.contains(song)) {
+            initial = index(topTracksAllTime, song);
+            end = index(list, song);
+            return initial - end;
+        }
+        return 51;
+    }
+
+    private int index(List<Song> list, Song song) {
+        for (int i = 0; i < list.size(); i++) {
+            if (song.equals(list.get(i))) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     private void initializeButtons() {
@@ -115,50 +220,6 @@ public class MainActivity extends AppCompatActivity {
             oneMonthScroll.setVisibility(View.VISIBLE);
 
         });
-    }
-
-    private void getTopTracks() {
-        topTracksRequest.getTopTracks(() -> {
-            topTracksAllTime = topTracksRequest.getSongsAllTime();
-            addSongs(allTimeList, topTracksAllTime);
-
-            topTracksSixMonths = topTracksRequest.getSongsSixMonth();
-            addSongs(sixMonthsList, topTracksSixMonths);
-
-            topTracksOneMonth = topTracksRequest.getSongsOneMonth();
-            addSongs(oneMonthList, topTracksOneMonth);
-
-            getSummary(topTracksAllTime, topTracksSixMonths, topTracksOneMonth);
-
-            setPlaylistButton();
-        });
-    }
-
-    private void addSongs(LinearLayout list, List<Song> tracks) {
-        list.removeAllViews();
-        for (int i = 0; i < tracks.size(); i++) {
-            View trackChunk = getLayoutInflater().inflate(R.layout.chunk_tracks,list, false);
-            Song song = tracks.get(i);
-
-            //Number
-            TextView number = trackChunk.findViewById(R.id.number);
-            number.setText(Integer.toString(i + 1));
-
-            //Album art
-            ImageView albumArt = trackChunk.findViewById(R.id.albumArt);
-            String imageUrl = song.getAlbumArtUrl();
-            Picasso.get().load(imageUrl).transform(transformation).into(albumArt);
-
-            //Song title
-            TextView title = trackChunk.findViewById(R.id.song);
-            title.setText(song.getName());
-
-            //Song artist
-            TextView artist = trackChunk.findViewById(R.id.artist);
-            artist.setText(song.getArtist());
-
-            list.addView(trackChunk);
-        }
     }
 
     private void setPlaylistButton() {
