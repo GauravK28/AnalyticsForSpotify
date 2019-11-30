@@ -7,7 +7,7 @@ Analytics about a user's Spotify listening habits over time
 * [Android Volley](https://developer.android.com/training/volley)
 * [Gson](https://github.com/google/gson/blob/master/UserGuide.md#TOC-Serializing-and-Deserializing-Collection-with-Objects-of-Arbitrary-Types)
 * [Android Picasso](https://square.github.io/picasso/)
-  * [Picasso Transformations](https://github.com/wasabeef/picasso-transformations)
+  * [Picasso Transformations Library](https://github.com/wasabeef/picasso-transformations)
 * [Tutorial used to add Spotify Authentication](https://towardsdatascience.com/using-the-spotify-api-with-your-android-application-the-essentials-1a3c1bc36b9e)
 
 ## Functionalities
