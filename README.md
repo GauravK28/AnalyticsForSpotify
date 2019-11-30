@@ -8,7 +8,7 @@ Analytics about a user's Spotify listening habits over time
 * [Gson](https://github.com/google/gson/blob/master/UserGuide.md#TOC-Serializing-and-Deserializing-Collection-with-Objects-of-Arbitrary-Types)
 * [Android Picasso](https://square.github.io/picasso/)
   * [Picasso Transformations](https://github.com/wasabeef/picasso-transformations)
-* [Tutorial Used to add Spotify Authentication](https://towardsdatascience.com/using-the-spotify-api-with-your-android-application-the-essentials-1a3c1bc36b9e)
+* [Tutorial used to add Spotify Authentication](https://towardsdatascience.com/using-the-spotify-api-with-your-android-application-the-essentials-1a3c1bc36b9e)
 
 ## Functionalities
 * Users can log into their spotify account(Premium not required)
