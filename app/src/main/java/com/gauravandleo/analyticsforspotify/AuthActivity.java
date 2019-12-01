@@ -35,7 +35,6 @@ public class AuthActivity extends AppCompatActivity {
 
     private SharedPreferences.Editor editor;
     private SharedPreferences sharedPreferences;
-
     private RequestQueue queue;
 
     @Override
@@ -99,7 +98,6 @@ public class AuthActivity extends AppCompatActivity {
             editor = getSharedPreferences("SPOTIFY", 0).edit();
             editor.putString("userid", user.getId());
             Log.d("STARTING", "GOT USER INFORMATION");
-            // We use commit instead of apply because we need the information stored immediately
             editor.commit();
             startMainActivity();
         });

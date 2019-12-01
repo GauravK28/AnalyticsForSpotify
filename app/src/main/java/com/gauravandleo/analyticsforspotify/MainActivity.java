@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
         initializeButtons();
     }
 
-
     private void getTopTracks() {
         topTracksRequest.getTopTracks(() -> {
             topTracksAllTime = topTracksRequest.getSongsAllTime();
