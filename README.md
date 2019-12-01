@@ -1,5 +1,5 @@
 # AnalyticsForSpotify
-Analytics about a user's Spotify listening habits over time
+An android app that provides analytics about a user's Spotify listening habits over time
 
 ## Tools
 * Android Studio
