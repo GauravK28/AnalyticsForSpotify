@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserRequest {
+
     private static final String ENDPOINT = "https://api.spotify.com/v1/me";
     private SharedPreferences sharedPreferences;
     private RequestQueue queue;
@@ -25,7 +26,6 @@ public class UserRequest {
         return user;
     }
 
-    //SAMPLE GET REQUEST
     public void get(final VolleyCallBack callBack) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(ENDPOINT, null, response -> {
 
@@ -48,5 +48,4 @@ public class UserRequest {
         };
         queue.add(jsonObjectRequest);
     }
-
 }

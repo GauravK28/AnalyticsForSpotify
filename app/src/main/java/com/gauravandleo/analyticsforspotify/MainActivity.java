@@ -30,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
     private List<Song> topTracksSixMonths;
     private List<Song> topTracksOneMonth;
 
-    final int radius = 5;
-    final int margin = 5;
-    final Transformation transformation = new RoundedCornersTransformation(radius, margin);
+    final int RADIUS = 5;
+    final int MARGIN = 5;
+    final Transformation transformation = new RoundedCornersTransformation(RADIUS, MARGIN);
 
     private LinearLayout allTimeList;
     private LinearLayout sixMonthsList;
@@ -60,15 +60,15 @@ public class MainActivity extends AppCompatActivity {
             backToAuthActivity();
         });
 
-        //TODO: add long press clickable spotify links to the songs
+        //TODO: Make class for headers to remove repeated code
+        //TODO: add long press clickable Spotify links to the songs
         //TODO: add info page
-        //TODO: add ability to autosign in, or just make that the default feature
+        //TODO: add ability to auto sign-in, or just make that the default feature
 
         allTimeList = findViewById(R.id.allTimeList);
         sixMonthsList = findViewById(R.id.sixMonthsList);
         oneMonthList = findViewById(R.id.oneMonthList);
 
-        //time_range can be  long_term, medium_term, short_term
         topTracksRequest = new TopTracksRequest(getApplicationContext());
         getTopTracks();
 
@@ -244,9 +244,7 @@ public class MainActivity extends AppCompatActivity {
     private void getSummary(List<Song> allTime, List<Song> sixMonths, List<Song> oneMonth) {
         Summary summary = new Summary(this, allTime, sixMonths, oneMonth);
         Button sum = findViewById(R.id.summary);
-        sum.setOnClickListener(unused -> {
-            summary.display();
-        });
+        sum.setOnClickListener(unused -> summary.display());
     }
 
     private void backToAuthActivity() {

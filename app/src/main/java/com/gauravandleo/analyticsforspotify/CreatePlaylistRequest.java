@@ -81,7 +81,6 @@ public class CreatePlaylistRequest {
         for (int i = 0; i < songs.size(); i++) {
             songUris.put(songs.get(i).getUri());
         }
-
         try {
             payload.put("uris", songUris);
             System.out.println("ADD TRACKS ENDPINT " + addTracksEndpoint);
@@ -99,7 +98,6 @@ public class CreatePlaylistRequest {
             toast.show();
 
         }, error -> System.out.println("Uh oh, Volley POST Request failed -addTracks()")) {
-
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
@@ -123,8 +121,6 @@ public class CreatePlaylistRequest {
             } catch (JSONException e) {
                 System.out.println(e);
             }
-            System.out.println(items.toString());
-            System.out.println("ITEM LENGTH " + items.length());
             for (int i = 0; i < items.length(); i++) {
                 try {
                     playlist = items.getJSONObject(i);
@@ -134,7 +130,6 @@ public class CreatePlaylistRequest {
                 Playlist p = gson.fromJson(playlist.toString(), Playlist.class);
                 playlists.add(p);
             }
-
             callBack.onSuccess();
 
         }, error ->System.out.println("Uh oh, Volley GET Request failed - getPlaylists()")) {
@@ -158,7 +153,6 @@ public class CreatePlaylistRequest {
                 prepareSongPayload();
             });
         }, error -> System.out.println("Uh oh, Volley POST Request failed - newPlaylist()")) {
-
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();

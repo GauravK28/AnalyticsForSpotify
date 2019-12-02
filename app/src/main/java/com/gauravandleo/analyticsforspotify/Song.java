@@ -57,10 +57,7 @@ public class Song {
 
     public boolean equals(Object other) {
         Song song = (Song) other;
-        if (name.equals(song.name)) {
-            return true;
-        }
-        return false;
+        return name.equals(song.name);
     }
 
     public String toString() {

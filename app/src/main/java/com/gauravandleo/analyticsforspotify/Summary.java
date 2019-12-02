@@ -59,7 +59,6 @@ public class Summary {
                     diff = Math.abs(index(topTracksAllTime.get(i)) - i);
                     song = topTracksAllTime.get(i);
                 }
-
             }
         }
         initial += 1;

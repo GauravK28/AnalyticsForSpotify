@@ -22,6 +22,7 @@ import java.util.Map;
 public class TopTracksRequest {
 
     //GETS all time top tracks
+    //time_range can be  long_term(all time), medium_term(6 months), short_term( 1 month)
     private final String ENDPOINT_ALL_TIME =  "https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=long_term";
     private final String ENDPOINT_SIX_MONTHS =  "https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=medium_term";
     private final String ENDPOINT_ONE_MONTH =  "https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=short_term";
@@ -79,13 +80,12 @@ public class TopTracksRequest {
 
                             songs.add(song);
                         }
-
                     } catch (JSONException e) {
                         System.out.println("JSON response for getTopTracks is null");
                         System.out.println(e);
                     }
-
                     callBack.onSuccess();
+
                 }, error -> System.out.println("Uh oh, Volley Request failed - getTopTrack()")) {
 
             @Override
@@ -100,6 +100,4 @@ public class TopTracksRequest {
         queue.add(jsonObjectRequest);
         return songs;
     }
-
-
 }
