@@ -40,7 +40,6 @@ public class Summary {
             totalMs += list.get(i).getDuration_ms();
         }
         int avgMs = totalMs / list.size();
-        System.out.println(avgMs);
         int minutes = avgMs / 60000;
         int seconds = (avgMs % 60000) / 1000;
         return minutes + "min " + seconds + "s";
@@ -63,6 +62,9 @@ public class Summary {
         }
         initial += 1;
         end += 1;
+        if (song.getName() == null) {
+            return "Largest song rise: N/A \n";
+        }
         return "Largest song rise: " +  song.getName() + "            \nFrom "
                 + initial + getSuffix(initial) + " to " + end + getSuffix(end) + "\n";
     }
@@ -85,6 +87,9 @@ public class Summary {
         }
         initial += 1;
         end += 1;
+        if (song.getName() == null) {
+            return "Largest song drop: N/A \n";
+        }
         return "Largest song drop: " +  song.getName() + "            \nFrom "
                 + initial + getSuffix(initial) + " to " + end + getSuffix(end) + "\n";
     }
