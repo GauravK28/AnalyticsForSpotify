@@ -62,7 +62,7 @@ public class Summary {
         }
         initial += 1;
         end += 1;
-        if (song.getName() == null) {
+        if (song == null) {
             return "Largest song rise: N/A \n";
         }
         return "Largest song rise: " +  song.getName() + "            \nFrom "
@@ -82,12 +82,11 @@ public class Summary {
                     diff = Math.abs(index(topTracksAllTime.get(i)) - i);
                     song = topTracksAllTime.get(i);
                 }
-
             }
         }
         initial += 1;
         end += 1;
-        if (song.getName() == null) {
+        if (song == null) {
             return "Largest song drop: N/A \n";
         }
         return "Largest song drop: " +  song.getName() + "            \nFrom "
