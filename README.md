@@ -1,5 +1,6 @@
 # AnalyticsForSpotify
 An android app that provides analytics about a user's Spotify listening habits over time
+
 CS125 Final Project
 
 ## Tools
