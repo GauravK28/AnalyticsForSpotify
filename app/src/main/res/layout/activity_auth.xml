@@ -12,7 +12,7 @@
         android:id="@+id/textView"
         android:layout_width="404dp"
         android:layout_height="117dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="10dp"
         android:text="Welcome to Spotify Analytics"
         android:textColor="#FFFFFF"
         android:textSize="30dp"
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="162dp"
         android:layout_marginLeft="162dp"
-        android:layout_marginTop="650dp"
+        android:layout_marginTop="500dp"
         android:layout_marginEnd="162dp"
         android:layout_marginRight="162dp"
         android:layout_marginBottom="48dp"
@@ -53,16 +53,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/spotify_logo" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/spotify_music_2019" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
