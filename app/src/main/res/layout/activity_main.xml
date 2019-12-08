@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_black"
     tools:context=".MainActivity">
 
     <TextView
@@ -26,6 +27,7 @@
         android:layout_marginTop="3dp"
         android:layout_marginEnd="2dp"
         android:layout_marginRight="2dp"
+        android:background="#1DB954"
         android:text="@string/logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
+            android:background="#1DB954"
             android:text="@string/all_time" />
 
         <Space
@@ -61,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
+            android:background="#1DB954"
             android:text="@string/_6_months" />
 
         <Space
@@ -74,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
+            android:background="#1DB954"
             android:text="@string/_1_month" />
 
         <Space
@@ -143,6 +145,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+        android:background="#1DB954"
         android:text="@string/summary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -151,6 +154,7 @@
         android:id="@+id/createPlaylist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#1DB954"
         android:text="@string/create_playlist"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
