@@ -1,4 +1,5 @@
 # AnalyticsForSpotify
+## About
 An android app that provides analytics about a user's Spotify listening habits over time
 
 CS125 Final Project
@@ -10,6 +11,7 @@ CS125 Final Project
 * [Gson](https://github.com/google/gson/blob/master/UserGuide.md#TOC-Serializing-and-Deserializing-Collection-with-Objects-of-Arbitrary-Types)
 * [Android Picasso](https://square.github.io/picasso/)
   * [Picasso Transformations Library](https://github.com/wasabeef/picasso-transformations)
+* [Ion](https://github.com/koush/ion#get-ion)
 * [Tutorial used to add Spotify Authentication](https://towardsdatascience.com/using-the-spotify-api-with-your-android-application-the-essentials-1a3c1bc36b9e)
 * [Json Formatter](https://jsonformatter.org/json-pretty-print)
 
