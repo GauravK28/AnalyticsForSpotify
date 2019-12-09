@@ -17,6 +17,7 @@
         android:text="Welcome to Spotify Analytics"
         android:textColor="#FFFFFF"
         android:textSize="30dp"
+        app:fontFamily="@font/proxima_nova_bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -32,6 +33,7 @@
         android:layout_marginBottom="48dp"
         android:background="#1DB954"
         android:text="@string/login"
+        app:fontFamily="@font/lineto_circular_black"
         android:textColor="#191414"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"

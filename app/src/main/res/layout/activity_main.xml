@@ -17,6 +17,7 @@
         android:text="@string/top_tracks"
         android:textColor="@android:color/secondary_text_dark"
         android:textSize="24sp"
+        app:fontFamily="@font/lineto_circular_pro_bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,6 +30,7 @@
         android:layout_marginRight="2dp"
         android:background="#1DB954"
         android:text="@string/logout"
+        app:fontFamily="@font/lineto_circular_black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,7 +55,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#1DB954"
+            app:fontFamily="@font/lineto_circular_black"
             android:text="@string/all_time" />
+
 
         <Space
             android:layout_width="wrap_content"
@@ -66,6 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#1DB954"
+            app:fontFamily="@font/lineto_circular_black"
             android:text="@string/_6_months" />
 
         <Space
@@ -79,6 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#1DB954"
+            app:fontFamily="@font/lineto_circular_black"
             android:text="@string/_1_month" />
 
         <Space
@@ -150,6 +156,7 @@
         android:layout_marginBottom="10dp"
         android:background="#1DB954"
         android:text="@string/summary"
+        app:fontFamily="@font/lineto_circular_black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -162,6 +169,7 @@
         android:layout_marginBottom="10dp"
         android:background="#1DB954"
         android:text="@string/create_playlist"
+        app:fontFamily="@font/lineto_circular_black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
