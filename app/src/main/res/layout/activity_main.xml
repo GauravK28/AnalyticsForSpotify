@@ -11,12 +11,12 @@
         android:id="@+id/topTracks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="124dp"
-        android:layout_marginLeft="124dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
         android:text="@string/top_tracks"
-        android:textColor="@android:color/secondary_text_dark"
-        android:textSize="24sp"
+        android:textColor="@color/word_white"
+        android:textSize="30sp"
         app:fontFamily="@font/lineto_circular_pro_bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,9 +28,10 @@
         android:layout_marginTop="3dp"
         android:layout_marginEnd="2dp"
         android:layout_marginRight="2dp"
-        android:background="#1DB954"
+        android:background="@android:color/transparent"
         android:text="@string/logout"
-        app:fontFamily="@font/lineto_circular_black"
+        android:textColor="@color/word_white"
+        app:fontFamily="@font/lineto_circular_pro_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -149,27 +150,27 @@
 
     <Button
         android:id="@+id/summary"
-        android:layout_width="wrap_content"
+        android:layout_width="115dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="10dp"
-        android:background="#1DB954"
+        android:background="@drawable/main_buttons"
         android:text="@string/summary"
-        app:fontFamily="@font/lineto_circular_black"
+        app:fontFamily="@font/lineto_circular_pro_medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/createPlaylist"
-        android:layout_width="135dp"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="10dp"
-        android:background="#1DB954"
+        android:background="@drawable/main_buttons"
         android:text="@string/create_playlist"
-        app:fontFamily="@font/lineto_circular_black"
+        app:fontFamily="@font/lineto_circular_pro_medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
