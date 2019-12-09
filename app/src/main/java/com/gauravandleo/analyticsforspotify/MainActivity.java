@@ -179,9 +179,9 @@ public class MainActivity extends AppCompatActivity {
         Button sixMonths = findViewById(R.id.sixMonths);
         Button oneMonth = findViewById(R.id.oneMonth);
 
-        allTime.setTextColor(Color.BLACK);
-        sixMonths.setTextColor(Color.LTGRAY);
-        oneMonth.setTextColor(Color.LTGRAY);
+        allTime.setTextColor(Color.parseColor("#1DB954"));
+        sixMonths.setTextColor(Color.WHITE);
+        oneMonth.setTextColor(Color.WHITE);
 
         allTimeScroll = findViewById(R.id.allTimeScroll);
         sixMonthScroll = findViewById(R.id.sixMonthScroll);
@@ -192,27 +192,27 @@ public class MainActivity extends AppCompatActivity {
         oneMonthScroll.setVisibility(View.GONE);
 
         allTime.setOnClickListener(unused -> {
-            allTime.setTextColor(Color.BLACK);
-            sixMonths.setTextColor(Color.LTGRAY);
-            oneMonth.setTextColor(Color.LTGRAY);
+            allTime.setTextColor(Color.parseColor("#1DB954"));
+            sixMonths.setTextColor(Color.WHITE);
+            oneMonth.setTextColor(Color.WHITE);
             allTimeScroll.setVisibility(View.VISIBLE);
             sixMonthScroll.setVisibility(View.GONE);
             oneMonthScroll.setVisibility(View.GONE);
 
         });
         sixMonths.setOnClickListener(unused -> {
-            allTime.setTextColor(Color.LTGRAY);
-            sixMonths.setTextColor(Color.BLACK);
-            oneMonth.setTextColor(Color.LTGRAY);
+            allTime.setTextColor(Color.WHITE);
+            sixMonths.setTextColor(Color.parseColor("#1DB954"));
+            oneMonth.setTextColor(Color.WHITE);
             allTimeScroll.setVisibility(View.GONE);
             sixMonthScroll.setVisibility(View.VISIBLE);
             oneMonthScroll.setVisibility(View.GONE);
 
         });
         oneMonth.setOnClickListener(unused -> {
-            allTime.setTextColor(Color.LTGRAY);
-            sixMonths.setTextColor(Color.LTGRAY);
-            oneMonth.setTextColor(Color.BLACK);
+            allTime.setTextColor(Color.WHITE);
+            sixMonths.setTextColor(Color.WHITE);
+            oneMonth.setTextColor(Color.parseColor("#1DB954"));
             allTimeScroll.setVisibility(View.GONE);
             sixMonthScroll.setVisibility(View.GONE);
             oneMonthScroll.setVisibility(View.VISIBLE);

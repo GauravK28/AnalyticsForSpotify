@@ -11,8 +11,8 @@
         android:id="@+id/topTracks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginLeft="35dp"
         android:layout_marginTop="20dp"
         android:text="@string/top_tracks"
         android:textColor="@color/word_white"
@@ -26,12 +26,13 @@
         android:layout_width="87dp"
         android:layout_height="42dp"
         android:layout_marginTop="3dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginRight="2dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
         android:background="@android:color/transparent"
         android:text="@string/logout"
         android:textColor="@color/word_white"
-        app:fontFamily="@font/lineto_circular_pro_medium"
+        android:textSize="15sp"
+        app:fontFamily="@font/lineto_circular_pro_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,9 +56,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#1DB954"
-            app:fontFamily="@font/lineto_circular_black"
-            android:text="@string/all_time" />
+            android:background="@android:color/transparent"
+            android:text="@string/all_time"
+            android:textColor="@color/spotify_green"
+            android:textSize="16sp"
+            app:fontFamily="@font/lineto_circular_black" />
 
 
         <Space
@@ -70,9 +73,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#1DB954"
-            app:fontFamily="@font/lineto_circular_black"
-            android:text="@string/_6_months" />
+            android:background="@android:color/transparent"
+            android:text="@string/_6_months"
+            android:textColor="@color/word_white"
+            android:textSize="16sp"
+            app:fontFamily="@font/lineto_circular_black" />
 
         <Space
             android:layout_width="wrap_content"
@@ -84,9 +89,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#1DB954"
-            app:fontFamily="@font/lineto_circular_black"
-            android:text="@string/_1_month" />
+            android:background="@android:color/transparent"
+            android:text="@string/_1_month"
+            android:textColor="@color/word_white"
+            android:textSize="16sp"
+            app:fontFamily="@font/lineto_circular_black" />
 
         <Space
             android:layout_width="wrap_content"
@@ -151,7 +158,7 @@
     <Button
         android:id="@+id/summary"
         android:layout_width="115dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="10dp"
@@ -164,7 +171,7 @@
     <Button
         android:id="@+id/createPlaylist"
         android:layout_width="160dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="10dp"
