@@ -16,5 +16,9 @@
     <string name="album_art">album art</string>
     <string name="summary">Summary</string>
     <string name="create_playlist">Create Playlist</string>
+    <string name="welcome_to_n_spotify_analytics">Welcome to  Spotify Analytics</string>
+    <string name="powered_by">Powered by</string>
+    <string name="spotify_logo_with_text">Spotify logo with text</string>
+    <string name="login_background_image">login background image</string>
 
 </resources>
