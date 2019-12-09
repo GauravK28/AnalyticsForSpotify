@@ -12,11 +12,12 @@
         android:id="@+id/textView"
         android:layout_width="404dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="167dp"
+        android:layout_marginTop="145dp"
+        android:gravity="center"
         android:scrollHorizontally="false"
-        android:text="Welcome to Spotify Analytics"
+        android:text="Welcome to\n Spotify Analytics"
         android:textColor="#FFFFFF"
-        android:textSize="30dp"
+        android:textSize="40dp"
         app:fontFamily="@font/proxima_nova_bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -27,25 +28,23 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="162dp"
         android:layout_marginLeft="162dp"
-        android:layout_marginTop="500dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="162dp"
         android:layout_marginRight="162dp"
-        android:layout_marginBottom="48dp"
         android:background="#1DB954"
         android:text="@string/login"
-        app:fontFamily="@font/lineto_circular_black"
         android:textColor="#191414"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:fontFamily="@font/lineto_circular_black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="112dp"
-        android:layout_height="101dp"
+        android:layout_width="69dp"
+        android:layout_height="69dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/spotify_logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
