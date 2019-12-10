@@ -180,8 +180,8 @@ public class MainActivity extends AppCompatActivity {
         Button oneMonth = findViewById(R.id.oneMonth);
 
         allTime.setTextColor(Color.parseColor("#1DB954"));
-        sixMonths.setTextColor(Color.WHITE);
-        oneMonth.setTextColor(Color.WHITE);
+        sixMonths.setTextColor(Color.GRAY);
+        oneMonth.setTextColor(Color.GRAY);
 
         allTimeScroll = findViewById(R.id.allTimeScroll);
         sixMonthScroll = findViewById(R.id.sixMonthScroll);
@@ -193,25 +193,25 @@ public class MainActivity extends AppCompatActivity {
 
         allTime.setOnClickListener(unused -> {
             allTime.setTextColor(Color.parseColor("#1DB954"));
-            sixMonths.setTextColor(Color.WHITE);
-            oneMonth.setTextColor(Color.WHITE);
+            sixMonths.setTextColor(Color.GRAY);
+            oneMonth.setTextColor(Color.GRAY);
             allTimeScroll.setVisibility(View.VISIBLE);
             sixMonthScroll.setVisibility(View.GONE);
             oneMonthScroll.setVisibility(View.GONE);
 
         });
         sixMonths.setOnClickListener(unused -> {
-            allTime.setTextColor(Color.WHITE);
+            allTime.setTextColor(Color.GRAY);
             sixMonths.setTextColor(Color.parseColor("#1DB954"));
-            oneMonth.setTextColor(Color.WHITE);
+            oneMonth.setTextColor(Color.GRAY);
             allTimeScroll.setVisibility(View.GONE);
             sixMonthScroll.setVisibility(View.VISIBLE);
             oneMonthScroll.setVisibility(View.GONE);
 
         });
         oneMonth.setOnClickListener(unused -> {
-            allTime.setTextColor(Color.WHITE);
-            sixMonths.setTextColor(Color.WHITE);
+            allTime.setTextColor(Color.GRAY);
+            sixMonths.setTextColor(Color.GRAY);
             oneMonth.setTextColor(Color.parseColor("#1DB954"));
             allTimeScroll.setVisibility(View.GONE);
             sixMonthScroll.setVisibility(View.GONE);

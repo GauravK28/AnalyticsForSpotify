@@ -1,29 +1,20 @@
 package com.gauravandleo.analyticsforspotify;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
-import com.koushikdutta.ion.Ion;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
-
-import java.util.NoSuchElementException;
 
 /**
  * Authentication logic used from
@@ -53,9 +44,6 @@ public class AuthActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_auth);
-
-        ImageView background = findViewById(R.id.imageView2);
-        scaleImage(background);
 
         Button login = findViewById(R.id.login);
         login.setOnClickListener(unused -> authenticateSpotify());
@@ -119,69 +107,4 @@ public class AuthActivity extends AppCompatActivity {
         Intent newIntent = new Intent(AuthActivity.this, MainActivity.class);
         startActivity(newIntent);
     }
-
-    /**
-     * Code used to scale imageView onto full display
-     * https://stackoverflow.com/questions/8232608/fit-image-into-imageview-keep-aspect-ratio-and-then-resize-imageview-to-image-d
-     * @param view login background image
-     * @throws NoSuchElementException
-     */
-    private void scaleImage(ImageView view) throws NoSuchElementException {
-        // Get bitmap from the the ImageView.
-        Bitmap bitmap = null;
-
-        try {
-            Drawable drawing = view.getDrawable();
-            bitmap = ((BitmapDrawable) drawing).getBitmap();
-        } catch (NullPointerException e) {
-            throw new NoSuchElementException("No drawable on given view");
-        } catch (ClassCastException e) {
-            // Check bitmap is Ion drawable
-            bitmap = Ion.with(view).getBitmap();
-        }
-
-        // Get current dimensions AND the desired bounding box
-        int width = 0;
-
-        try {
-            width = bitmap.getWidth();
-        } catch (NullPointerException e) {
-            throw new NoSuchElementException("Can't find bitmap on given view/drawable");
-        }
-
-        int height = bitmap.getHeight();
-        int bounding = dpToPx(850);
-
-        // Determine how much to scale: the dimension requiring less scaling is
-        // closer to the its side. This way the image always stays inside your
-        // bounding box AND either x/y axis touches it.
-        float xScale = ((float) bounding) / width;
-        float yScale = ((float) bounding) / height;
-        float scale = (xScale <= yScale) ? xScale : yScale;
-
-        // Create a matrix for the scaling and add the scaling data
-        Matrix matrix = new Matrix();
-        matrix.postScale(scale, scale);
-
-        // Create a new bitmap and convert it to a format understood by the ImageView
-        Bitmap scaledBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
-        width = scaledBitmap.getWidth(); // re-use
-        height = scaledBitmap.getHeight(); // re-use
-        BitmapDrawable result = new BitmapDrawable(scaledBitmap);
-
-        // Apply the scaled bitmap
-        view.setImageDrawable(result);
-
-        // Now change ImageView's dimensions to match the scaled image
-        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) view.getLayoutParams();
-        params.width = width;
-        params.height = height;
-        view.setLayoutParams(params);
-    }
-
-    private int dpToPx(int dp) {
-        float density = getApplicationContext().getResources().getDisplayMetrics().density;
-        return Math.round((float)dp * density);
-    }
-
 }

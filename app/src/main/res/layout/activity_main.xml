@@ -164,6 +164,8 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/main_buttons"
         android:text="@string/summary"
+        android:textColor="@color/word_white"
+        android:textSize="12sp"
         app:fontFamily="@font/lineto_circular_pro_medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -177,6 +179,8 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/main_buttons"
         android:text="@string/create_playlist"
+        android:textColor="@color/word_white"
+        android:textSize="12sp"
         app:fontFamily="@font/lineto_circular_pro_medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
