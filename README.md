@@ -31,3 +31,5 @@ CS125 Final Project
 ### Future Functionalities
 * Long press a song to redirect a user to its Spotify page (website or Spotify app)
 * Implement multithreading to reduce frame lag
+* Compatability with Apple Music
+* Porting to IOS
