@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_black"
+    android:background="@drawable/login_background"
     tools:context=".AuthActivity">
 
 
@@ -50,7 +50,7 @@
         android:layout_marginRight="5dp"
         android:layout_marginBottom="60dp"
         android:text="@string/powered_by"
-        android:textColor="@android:color/black"
+        android:textColor="@color/word_white"
         android:textSize="24sp"
         app:fontFamily="@font/proxima_nova_bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -60,14 +60,14 @@
         android:id="@+id/imageView"
         android:layout_width="142dp"
         android:layout_height="42dp"
-        android:layout_marginStart="192dp"
-        android:layout_marginLeft="192dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginLeft="200dp"
         android:layout_marginBottom="55dp"
         android:contentDescription="@string/spotify_logo_with_text"
         android:scaleX="1"
         android:scaleY="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/spotify_logo_with_text" />
+        app:srcCompat="@drawable/spotify_Logo_CMYK_White" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
