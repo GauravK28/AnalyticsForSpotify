@@ -139,10 +139,10 @@ public class MainActivity extends AppCompatActivity {
         moved.setText(String.valueOf(Math.abs(getDifference(list, song))));
         //song went down
         if (getDifference(list, song) < 0) {
-            placement.setImageResource(R.drawable.down_arrow);
+            placement.setImageResource(R.drawable.red_down_arrow);
         //song went up
         } else if (getDifference(list, song) != 51 && getDifference(list, song) > 0) {
-            placement.setImageResource(R.drawable.up_arrow);
+            placement.setImageResource(R.drawable.green_up_arrow);
         //song is in same position
         } else if (getDifference(list, song) == 0){
             moved.setVisibility(View.INVISIBLE);
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         //newly added song
         } else {
             moved.setVisibility(View.INVISIBLE);
-            placement.setImageResource(R.drawable.plus);
+            placement.setImageResource(R.drawable.green_plus);
         }
     }
 
