@@ -41,6 +41,13 @@ public class CreatePlaylistRequest {
     //TODO:        if it has, open a alertdialog to ask if they want to replace the playlist's tracks with the updated "TOP"
     //TODO:                 so then need to create a PUT request to replace the track in a playlist
 
+    /**
+     * Setting up a playlist to be created by initialized the name of the playlist and the specific
+     * endpoint that needs to be access based on the user's id
+     * @param context context of the main activity
+     * @param name name of the playlist being created
+     * @param list the list that is being accessed
+     */
     public CreatePlaylistRequest(Context context, String name, List<Song> list) {
         sharedPreferences = context.getSharedPreferences("SPOTIFY", 0);
         queue = Volley.newRequestQueue(context);
@@ -54,6 +61,9 @@ public class CreatePlaylistRequest {
         songs = list;
     }
 
+    /**
+     * Creates JSON object for creating a playlist
+     */
     public void preparePlaylistPayload() {
         JSONObject payload = new JSONObject();
         try {
@@ -65,9 +75,13 @@ public class CreatePlaylistRequest {
         }
     }
 
+    /**
+     * Sets the id of a playlist so that it can be used later in a POST request to populate the
+     * newly created playlist with the top 50 songs
+     * @param name name of the playlist
+     */
     private void setNewPlaylistId(String name) {
         for (int i = 0; i <  playlists.size(); i++) {
-            System.out.println(playlists.get(i).getName());
             if (playlists.get(i).getName().equals(name)) {
                 newPlaylistId = playlists.get(i).getId();
                 return;
@@ -75,6 +89,9 @@ public class CreatePlaylistRequest {
         }
     }
 
+    /**
+     * Creates JSON Object containing all 50 songs that are to be added to the playlist
+     */
     private void prepareSongPayload() {
         JSONObject payload = new JSONObject();
         JSONArray songUris = new JSONArray();
@@ -91,6 +108,11 @@ public class CreatePlaylistRequest {
         }
     }
 
+    /**
+     * POST request to add all the songs to the created newly created playlist
+     * @param payload the JSON Object containing all the top 50 songs
+     * @return
+     */
     private JsonObjectRequest addTracks(JSONObject payload) {
         return new JsonObjectRequest(Request.Method.POST, addTracksEndpoint, payload, response -> {
             Toast toast = Toast.makeText(context, newPlaylistName + " playlist created", Toast.LENGTH_LONG);
@@ -110,6 +132,13 @@ public class CreatePlaylistRequest {
         };
     }
 
+    /**
+     * GET request to get a list of all the user's playlist because the newly created playlist's
+     * ID was unknown upon doing the POST request to create the new playlist
+     * the playlists are then added to a list which is then called in setNewPlaylistId() to
+     * access the new playlists ID
+     * @param callBack indicating if web request was successful
+     */
     private void getPlaylists(VolleyCallBack callBack) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(playlistEndpoint, null, response -> {
             System.out.println("RESPONSE " + response.toString());
@@ -145,6 +174,10 @@ public class CreatePlaylistRequest {
         queue.add(jsonObjectRequest);
     }
 
+    /**
+     * POST request to create the new playlist
+     * @param payload the JSON Object containing the playlist's name
+     */
     private void newPlaylist(JSONObject payload) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, playlistEndpoint, payload, response -> {
             getPlaylists(() -> {

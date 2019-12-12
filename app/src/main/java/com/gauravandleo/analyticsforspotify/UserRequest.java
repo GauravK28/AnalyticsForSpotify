@@ -17,15 +17,28 @@ public class UserRequest {
     private RequestQueue queue;
     private User user;
 
+    /**
+     * Gets the shared Preferences and sets up Volley queue
+     * @param queue
+     * @param sharedPreferences
+     */
     public UserRequest(RequestQueue queue, SharedPreferences sharedPreferences) {
         this.queue = queue;
         this.sharedPreferences = sharedPreferences;
     }
 
+    /**
+     * Gets the user
+     * @return
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     * GET request to receive the current user and stored the user's email and name in a User object
+     * @param callBack indicating if web request was successful
+     */
     public void get(final VolleyCallBack callBack) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(ENDPOINT, null, response -> {
 

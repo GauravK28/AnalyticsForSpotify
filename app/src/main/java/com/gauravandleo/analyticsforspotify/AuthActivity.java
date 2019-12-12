@@ -38,6 +38,10 @@ public class AuthActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private RequestQueue queue;
 
+    /**
+     * Setups up onclick listenenr so that user can be sent to Spotify Auth after pressing "login"
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +56,9 @@ public class AuthActivity extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
     }
 
+    /**
+     * Sends user to the Spotify login screen after they click "login" button
+     */
     private void authenticateSpotify() {
         AuthenticationRequest.Builder builder = new AuthenticationRequest
                 .Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI)
@@ -61,6 +68,12 @@ public class AuthActivity extends AppCompatActivity {
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
     }
 
+    /**
+     * Gets AUTH token so that app can access user's data through Spotify WebAPI
+     * @param requestCode code to start request
+     * @param resultCode coded after request (access granted or denied)
+     * @param intent stores the auth data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
@@ -91,6 +104,9 @@ public class AuthActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Stores the User ID in a User object so that it can be used later on in the app
+     */
     private void waitForUserInfo() {
         UserRequest userRequest = new UserRequest(queue, sharedPreferences);
         userRequest.get(() -> {
@@ -103,6 +119,9 @@ public class AuthActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Switches to the main screen
+     */
     private void startMainActivity() {
         Intent newIntent = new Intent(AuthActivity.this, MainActivity.class);
         startActivity(newIntent);

@@ -33,6 +33,10 @@ public class TopTracksRequest {
     private SharedPreferences sharedPreferences;
     private RequestQueue queue;
 
+    /**
+     * Gets the shared preferences containing the AUTH token
+     * @param context context of the main activity
+     */
     public TopTracksRequest (Context context) {
         sharedPreferences = context.getSharedPreferences("SPOTIFY", 0);
         queue = Volley.newRequestQueue(context);
@@ -42,12 +46,23 @@ public class TopTracksRequest {
     public List<Song> getSongsSixMonth() { return songsSixMonth; }
     public List<Song> getSongsOneMonth() { return songsOneMonth; }
 
+    /**
+     * Starts get request for each list type
+     * @param callBack
+     */
     public void getTopTracks(final VolleyCallBack callBack){
         songsAllTime = get(callBack, ENDPOINT_ALL_TIME);
         songsSixMonth = get(callBack, ENDPOINT_SIX_MONTHS);
         songsOneMonth = get(callBack, ENDPOINT_ONE_MONTH);
     }
 
+    /**
+     * Uses Volley to start GET web request through spotify API to access a user's top 50 songs
+     * of all time, 6 months, 1 month
+     * @param callBack indicating if web request was successful
+     * @param endpoint the endpoint of the API that is being accessed
+     * @return
+     */
     private List<Song> get(final VolleyCallBack callBack, String endpoint) {
         List<Song> songs = new ArrayList<>();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(

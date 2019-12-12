@@ -45,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
     private TextView moved;
     private ImageView placement;
 
+    /**
+     * Setups up the UI and starts the calls method
+     * for the web request to get the top songs for each list
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +80,10 @@ public class MainActivity extends AppCompatActivity {
         initializeButtons();
     }
 
+    /**
+     * Uses the toptracksrequest class to start the POST request to receive top song data and
+     * setups up other UI functionalities
+     */
     private void getTopTracks() {
         topTracksRequest.getTopTracks(() -> {
             topTracksAllTime = topTracksRequest.getSongsAllTime();
@@ -92,6 +101,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Adds a song to a list (alltime, 6months, or one month)
+     * @param list the UI list for the specific time frame
+     * @param tracks the array that contains the top 50 songs
+     *               for a list(all time, 6months, or one month)
+     */
     private void addSongs(LinearLayout list, List<Song> tracks) {
         list.removeAllViews();
         for (int i = 0; i < tracks.size(); i++) {
@@ -122,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
             placement = trackChunk.findViewById(R.id.standing);
             placement.setVisibility(View.VISIBLE);
 
+            //hides the lists that don't need to be displayed
             if (list.getId() == R.id.allTimeList) {
                 moved.setVisibility(View.GONE);
                 placement.setVisibility(View.GONE);
@@ -135,18 +151,29 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Adds an up arrow, down arrow, or dash to indicate a songs position in the 6 month or 1 month
+     * compared to the all time list
+     * Also adds the specific number of ranks a song went up/down
+     * @param list list of the songs
+     * @param song specific song object
+     */
     private void setStanding(List<Song> list, Song song) {
         moved.setText(String.valueOf(Math.abs(getDifference(list, song))));
+
         //song went down
         if (getDifference(list, song) < 0) {
             placement.setImageResource(R.drawable.red_down_arrow);
+
         //song went up
         } else if (getDifference(list, song) != 51 && getDifference(list, song) > 0) {
             placement.setImageResource(R.drawable.green_up_arrow);
+
         //song is in same position
         } else if (getDifference(list, song) == 0){
             moved.setVisibility(View.INVISIBLE);
             placement.setImageResource(R.drawable.dash);
+
         //newly added song
         } else {
             moved.setVisibility(View.INVISIBLE);
@@ -154,6 +181,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Gets the difference of a songs rank between its 1/6 month position to its all time position
+     * @param list list of the songs in that time frame
+     * @param song specific song object
+     * @return
+     */
     private int getDifference(List<Song> list, Song song) {
         int initial = 0;
         int end = 0;
@@ -165,6 +198,13 @@ public class MainActivity extends AppCompatActivity {
         return 51;
     }
 
+    /**
+     * SHOULD BE REPLACED with indexOf(Object o) method  instead of creating new method
+     * Gets the index of a song in a list
+     * @param list
+     * @param song
+     * @return
+     */
     private int index(List<Song> list, Song song) {
         for (int i = 0; i < list.size(); i++) {
             if (song.equals(list.get(i))) {
@@ -174,6 +214,11 @@ public class MainActivity extends AppCompatActivity {
         return -1;
     }
 
+    /**
+     * NEEDS TO BE REDUCED/SIMPLIFIED
+     * Initializes and sets onclick methods for all the time frame buttons and dynamically changes
+     * UI according to what is clicked
+     */
     private void initializeButtons() {
         Button allTime = findViewById(R.id.allTime);
         Button sixMonths = findViewById(R.id.sixMonths);
@@ -220,6 +265,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Sets up the "create playlist" button and start POST web request to add a list to a user's
+     * Spotify account
+     */
     private void setPlaylistButton() {
         Button createPlaylist = findViewById(R.id.createPlaylist);
         createPlaylist.setOnClickListener(unused -> {
@@ -241,12 +290,21 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Displays the average songs lengths for each list and the highest drop/rise as an AlertDialog
+     * @param allTime all time song list
+     * @param sixMonths 6 month song list
+     * @param oneMonth 1 month song list
+     */
     private void getSummary(List<Song> allTime, List<Song> sixMonths, List<Song> oneMonth) {
         Summary summary = new Summary(this, allTime, sixMonths, oneMonth);
         Button sum = findViewById(R.id.summary);
         sum.setOnClickListener(unused -> summary.display());
     }
 
+    /**
+     * Sends user back to login page.
+     */
     private void backToAuthActivity() {
         Intent newIntent = new Intent(MainActivity.this, AuthActivity.class);
         startActivity(newIntent);

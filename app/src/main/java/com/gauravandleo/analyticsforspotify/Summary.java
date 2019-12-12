@@ -14,6 +14,13 @@ public class Summary {
 
     private Context context;
 
+    /**
+     * Gets the lists from main activity so that they can be used for calculations
+     * @param context
+     * @param allTime
+     * @param sixMonths
+     * @param oneMonth
+     */
     public Summary (Context context, List<Song> allTime, List<Song> sixMonths, List<Song> oneMonth) {
         this.context = context;
         topTracksAllTime = allTime;
@@ -21,6 +28,9 @@ public class Summary {
         topTracksOneMonth = oneMonth;
     }
 
+    /**
+     * Creates an AlertDialog to display average song lengths and the largest drop/rise
+     */
     public void display() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Summary")
@@ -34,6 +44,11 @@ public class Summary {
         builder.create().show();
     }
 
+    /**
+     * Calculates the average song length of a list
+     * @param list the top 50 list currenty being used
+     * @return a string containing the time that will be displayed in the AlertDialog
+     */
     private String averageTime(List<Song> list) {
         int totalMs = 0;
         for (int i = 0; i < list.size(); i++) {
@@ -45,6 +60,11 @@ public class Summary {
         return minutes + "min " + seconds + "s";
     }
 
+    /**
+     * Finds the song that increased in the most number of ranks from all time to 1 month
+     * @return a string containing the song name and the number of ranks it rose to be displayed
+     * in the AlertDialog
+     */
     private String largestRise() {
         Song song = null;
         int initial = 0;
@@ -69,6 +89,11 @@ public class Summary {
                 + initial + getSuffix(initial) + " to " + end + getSuffix(end) + "\n";
     }
 
+    /**
+     * Finds the song that decreased the most number of ranks from all time to 1 month
+     * @return a string containing the song name and the number of ranks it dropped to be displayed
+     * in the AlertDialog
+     */
     private String largestDrop() {
         Song song = null;
         int initial = 0;
@@ -102,6 +127,11 @@ public class Summary {
         return -1;
     }
 
+    /**
+     * Gets the suffix of the rank number difference so that the number can be displayed as a placement
+     * @param n the rank number difference of a song
+     * @return
+     */
     String getSuffix(int n) {
         if (n >= 11 && n <= 13) {
             return "th";
