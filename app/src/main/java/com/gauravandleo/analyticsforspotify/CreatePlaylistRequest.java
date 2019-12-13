@@ -137,7 +137,7 @@ public class CreatePlaylistRequest {
      * ID was unknown upon doing the POST request to create the new playlist
      * the playlists are then added to a list which is then called in setNewPlaylistId() to
      * access the new playlists ID
-     * @param callBack indicating if web request was successful
+     * @param callBack functionality to do after request
      */
     private void getPlaylists(VolleyCallBack callBack) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(playlistEndpoint, null, response -> {
