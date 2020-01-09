@@ -28,7 +28,7 @@ CS125 Final Project
   * And the song that had the largest drop
 * A user can then choose to create any of the three lists into a playlist on their Spotify account
 
-### Future Functionalities
+### Future Functionalities/Improvements
 * Long press a song to redirect a user to its Spotify page (website or Spotify app)
 * Implement multithreading to reduce frame lag
 * Compatability with Apple Music
